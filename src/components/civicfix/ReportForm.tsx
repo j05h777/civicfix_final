@@ -44,6 +44,15 @@ import { Card, CardContent } from "@/components/ui/card";
 import { submitReport } from "@/app/actions";
 import { useToast } from "@/hooks/use-toast";
 
+const imageSchema = z
+  .any()
+  .optional()
+  .refine(
+    (files) =>
+      !files || !(files instanceof FileList) || files.length === 0 || files[0].size <= 5_000_000,
+    `Max file size is 5MB.`
+  );
+
 const formSchema = z.object({
   location: z
     .string()
@@ -53,13 +62,7 @@ const formSchema = z.object({
     .string()
     .min(20, { message: "Description must be at least 20 characters." })
     .max(500, { message: "Description must be 500 characters or less." }),
-  image: z
-    .any()
-    .optional()
-    .refine(
-      (files) => !files || files.length === 0 || (files?.[0]?.size <= 5_000_000),
-      `Max file size is 5MB.`
-    ),
+  image: imageSchema,
 });
 
 const categories = [
@@ -223,7 +226,7 @@ export function ReportForm() {
                     Supporting Image (Optional)
                   </FormLabel>
                   <FormControl>
-                    <>
+                    <div>
                       {imagePreview ? (
                         <div className="relative w-full h-48 rounded-md overflow-hidden border">
                           <Image
@@ -285,7 +288,7 @@ export function ReportForm() {
                           </div>
                         </div>
                       )}
-                    </>
+                    </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>

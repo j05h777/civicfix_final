@@ -1,5 +1,7 @@
 import { ReportForm } from "@/components/civicfix/ReportForm";
-import { Vote } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Vote, Wrench } from "lucide-react";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -19,6 +21,15 @@ export default function Home() {
         </header>
 
         <ReportForm />
+
+        <div className="text-center">
+          <Button variant="outline" asChild>
+            <Link href="/admin">
+              <Wrench className="mr-2 h-4 w-4" />
+              Admin Dashboard
+            </Link>
+          </Button>
+        </div>
 
         <footer className="pt-8 text-center text-sm text-muted-foreground">
           <p>&copy; {new Date().getFullYear()} CivicFix. A community initiative.</p>

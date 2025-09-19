@@ -44,14 +44,18 @@ import { Card, CardContent } from "@/components/ui/card";
 import { submitReport } from "@/app/actions";
 import { useToast } from "@/hooks/use-toast";
 
+
 const imageSchema = z
   .any()
   .optional()
   .refine(
-    (files) =>
-      !files || !(files instanceof FileList) || files.length === 0 || files[0].size <= 5_000_000,
+    (files) => {
+      if (typeof window === 'undefined') return true; // Skip validation on server
+      return !files || !(files instanceof FileList) || files.length === 0 || files[0].size <= 5_000_000
+    },
     `Max file size is 5MB.`
   );
+  
 
 const formSchema = z.object({
   location: z

@@ -24,3 +24,4 @@ This project includes a pre-configured Dev Container. When you open this project
 
 This will build a Docker container with all the necessary dependencies (like Node.js) already installed, ensuring a consistent development environment on any machine. All you need to have installed is Docker and the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) in VS Code.
 
+
